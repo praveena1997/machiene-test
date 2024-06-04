@@ -1,0 +1,113 @@
+{% block title %}Login{% endblock %}
+{% block style %}
+{% load static %}
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: url('{% static "image/todo4.jpg" %}') no-repeat center center fixed;
+            background-size: cover;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .navbar {
+            background-color: #333;
+            overflow: hidden;
+            display: flex;
+            justify-content: space-between;
+            padding: 14px 20px;
+        }
+
+        .navbar a {
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 14px 20px;
+            text-decoration: none;
+        }
+
+        .navbar a:hover {
+            background-color: #575757;
+        }
+
+        .navbar .right {
+            display: flex;
+            gap: 10px;
+        }
+
+        .form-container {
+            background-color: #ffffff;
+            padding: 20px 40px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 400px;
+            margin: 20px auto;
+        }
+
+        h2 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        form .form-group {
+            margin-bottom: 15px;
+        }
+
+        form .form-group label {
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #555;
+        }
+
+        form .form-group input,
+        form .form-group textarea,
+        form .form-group select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        form button {
+            background-color: #007bff;
+            color: #ffffff;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        form button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+{% endblock %}
+{% block body %}
+<body>
+    <div class="navbar">
+        
+        <div class="right">
+            <a href="{% url 'logout' %}">Logout</a>
+            <a href="#">Home</a>
+        </div>
+    </div>
+    <div class="form-container">
+        <h2>{{ task.id|yesno:"Update Task,Create Task" }}</h2>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">{{ task.id|yesno:"Update,Create" }}</button>
+        </form>
+    </div>
+</body>
+{% endblock %}
